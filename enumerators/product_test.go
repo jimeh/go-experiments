@@ -60,3 +60,15 @@ func (s *productSuite) TestProduct4(c *C) {
 
 	c.Assert(output, DeepEquals, [][]int{})
 }
+
+func (s *productSuite) BenchmarkProduct(c *C) {
+	for i := 0; i < c.N; i++ {
+		results := Product(
+			[]int{1, 2, 3, 4, 5, 6, 7, 8},
+			[]int{10, 20, 30, 40, 50},
+			[]int{100, 200, 300},
+			[]int{1000, 2000, 3000, 4000, 5000},
+		)
+		collectResults(results)
+	}
+}
