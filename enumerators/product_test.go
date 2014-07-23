@@ -17,7 +17,7 @@ func collectResults(results chan []int) [][]int {
 }
 
 func (s *productSuite) TestProduct1(c *C) {
-	results := product([]int{1}, []int{10, 20})
+	results := Product([]int{1}, []int{10, 20})
 	output := collectResults(results)
 
 	c.Assert(output, DeepEquals, [][]int{
@@ -27,7 +27,7 @@ func (s *productSuite) TestProduct1(c *C) {
 }
 
 func (s *productSuite) TestProduct2(c *C) {
-	results := product([]int{1, 2}, []int{10, 20})
+	results := Product([]int{1, 2}, []int{10, 20})
 	output := collectResults(results)
 
 	c.Assert(output, DeepEquals, [][]int{
@@ -37,7 +37,7 @@ func (s *productSuite) TestProduct2(c *C) {
 }
 
 func (s *productSuite) TestProduct3(c *C) {
-	results := product(
+	results := Product(
 		[]int{1},
 		[]int{10, 20},
 		[]int{100},
@@ -55,7 +55,7 @@ func (s *productSuite) TestProduct3(c *C) {
 }
 
 func (s *productSuite) TestProduct4(c *C) {
-	results := product([]int{1}, []int{}, []int{100, 200})
+	results := Product([]int{1}, []int{}, []int{100, 200})
 	output := collectResults(results)
 
 	c.Assert(output, DeepEquals, [][]int{})
