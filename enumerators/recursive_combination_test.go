@@ -6,6 +6,10 @@ type RecursiveCombinationSuite struct{}
 
 var _ = Suite(&RecursiveCombinationSuite{})
 
+/*
+   Tests
+*/
+
 func (s *RecursiveCombinationSuite) TestRecursiveCombination1(c *C) {
 	results := RecursiveCombination([]int{1, 2, 3, 4, 5}, 0)
 	output := collectResults(results)
@@ -40,6 +44,10 @@ func (s *RecursiveCombinationSuite) TestRecursiveCombination4(c *C) {
 		{3, 4, 5},
 	})
 }
+
+/*
+   Benchmarks
+*/
 
 func (s *RecursiveCombinationSuite) Benchmark(c *C) {
 	for i := 0; i < c.N; i++ {

@@ -6,6 +6,10 @@ type ItertoolsCombinationSuite struct{}
 
 var _ = Suite(&ItertoolsCombinationSuite{})
 
+/*
+   Tests
+*/
+
 func (s *ItertoolsCombinationSuite) TestItertoolsCombination1(c *C) {
 	results := ItertoolsCombination([]int{1, 2, 3, 4, 5}, 0)
 	output := collectResults(results)
@@ -40,6 +44,10 @@ func (s *ItertoolsCombinationSuite) TestItertoolsCombination4(c *C) {
 		{3, 4, 5},
 	})
 }
+
+/*
+   Benchmarks
+*/
 
 func (s *ItertoolsCombinationSuite) Benchmark(c *C) {
 	for i := 0; i < c.N; i++ {

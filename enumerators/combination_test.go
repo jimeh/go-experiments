@@ -6,6 +6,10 @@ type CombinationSuite struct{}
 
 var _ = Suite(&CombinationSuite{})
 
+/*
+   Tests
+*/
+
 func (s *CombinationSuite) TestCombination1(c *C) {
 	results := Combination([]int{1, 2, 3, 4, 5}, 0)
 	output := collectResults(results)
@@ -21,7 +25,11 @@ func (s *CombinationSuite) TestCombination2(c *C) {
 func (s *CombinationSuite) TestCombination3(c *C) {
 	results := Combination([]int{10, 20, 30}, 2)
 	output := collectResults(results)
-	c.Assert(output, DeepEquals, [][]int{{10, 20}, {10, 30}, {20, 30}})
+	c.Assert(output, DeepEquals, [][]int{
+		{10, 20},
+		{10, 30},
+		{20, 30},
+	})
 }
 
 func (s *CombinationSuite) TestCombination4(c *C) {
@@ -40,6 +48,10 @@ func (s *CombinationSuite) TestCombination4(c *C) {
 		{3, 4, 5},
 	})
 }
+
+/*
+   Benchmarks
+*/
 
 func (s *CombinationSuite) Benchmark(c *C) {
 	for i := 0; i < c.N; i++ {

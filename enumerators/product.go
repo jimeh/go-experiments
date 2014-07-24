@@ -15,7 +15,7 @@ func Product(pool ...[]int) chan []int {
 		state := make([]int, size)
 
 		for _, list := range pool {
-			if len(list) <= 0 {
+			if len(list) == 0 {
 				return
 			}
 		}

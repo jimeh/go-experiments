@@ -6,6 +6,10 @@ type ProductSuite struct{}
 
 var _ = Suite(&ProductSuite{})
 
+/*
+   Tests
+*/
+
 func (s *ProductSuite) TestProduct1(c *C) {
 	results := Product([]int{1}, []int{10, 20})
 	output := collectResults(results)
@@ -27,6 +31,16 @@ func (s *ProductSuite) TestProduct2(c *C) {
 }
 
 func (s *ProductSuite) TestProduct3(c *C) {
+	results := Product([]int{1}, []int{10, 20}, []int{100})
+	output := collectResults(results)
+
+	c.Assert(output, DeepEquals, [][]int{
+		{1, 10, 100},
+		{1, 20, 100},
+	})
+}
+
+func (s *ProductSuite) TestProduct4(c *C) {
 	results := Product(
 		[]int{1},
 		[]int{10, 20},
@@ -44,12 +58,23 @@ func (s *ProductSuite) TestProduct3(c *C) {
 	})
 }
 
-func (s *ProductSuite) TestProduct4(c *C) {
+func (s *ProductSuite) TestProduct5(c *C) {
 	results := Product([]int{1}, []int{}, []int{100, 200})
 	output := collectResults(results)
 
 	c.Assert(output, DeepEquals, [][]int{})
 }
+
+func (s *ProductSuite) TestProduct6(c *C) {
+	results := Product([]int{1}, []int{10}, []int{100})
+	output := collectResults(results)
+
+	c.Assert(output, DeepEquals, [][]int{{1, 10, 100}})
+}
+
+/*
+   Benchmarks
+*/
 
 func (s *ProductSuite) Benchmark(c *C) {
 	for i := 0; i < c.N; i++ {
