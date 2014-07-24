@@ -3,7 +3,7 @@ package enumerators
 // Product returns a channel which will receive one by one all combinations of
 // ints from all given arrays/slices of ints.
 //
-// Based on Ruby's Array#product method:
+// Based on the C source code of Ruby's Array#product method:
 // http://www.ruby-doc.org/core-1.9.3/Array.html#method-i-product
 func Product(pool ...[]int) chan []int {
 	results := make(chan []int)
