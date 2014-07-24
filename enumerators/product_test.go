@@ -2,21 +2,11 @@ package enumerators
 
 import . "gopkg.in/check.v1"
 
-type productSuite struct{}
+type ProductSuite struct{}
 
-var _ = Suite(&productSuite{})
+var _ = Suite(&ProductSuite{})
 
-func collectResults(results chan []int) [][]int {
-	output := [][]int{}
-	for result := range results {
-		if result != nil {
-			output = append(output, result)
-		}
-	}
-	return output
-}
-
-func (s *productSuite) TestProduct1(c *C) {
+func (s *ProductSuite) TestProduct1(c *C) {
 	results := Product([]int{1}, []int{10, 20})
 	output := collectResults(results)
 
@@ -26,7 +16,7 @@ func (s *productSuite) TestProduct1(c *C) {
 	})
 }
 
-func (s *productSuite) TestProduct2(c *C) {
+func (s *ProductSuite) TestProduct2(c *C) {
 	results := Product([]int{1, 2}, []int{10, 20})
 	output := collectResults(results)
 
@@ -36,7 +26,7 @@ func (s *productSuite) TestProduct2(c *C) {
 	})
 }
 
-func (s *productSuite) TestProduct3(c *C) {
+func (s *ProductSuite) TestProduct3(c *C) {
 	results := Product(
 		[]int{1},
 		[]int{10, 20},
@@ -54,14 +44,14 @@ func (s *productSuite) TestProduct3(c *C) {
 	})
 }
 
-func (s *productSuite) TestProduct4(c *C) {
+func (s *ProductSuite) TestProduct4(c *C) {
 	results := Product([]int{1}, []int{}, []int{100, 200})
 	output := collectResults(results)
 
 	c.Assert(output, DeepEquals, [][]int{})
 }
 
-func (s *productSuite) BenchmarkProduct(c *C) {
+func (s *ProductSuite) Benchmark(c *C) {
 	for i := 0; i < c.N; i++ {
 		results := Product(
 			[]int{1, 2, 3, 4, 5, 6, 7, 8},
