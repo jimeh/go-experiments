@@ -9,12 +9,13 @@ func Product(pool ...[]int) chan []int {
 	results := make(chan []int)
 
 	go func() {
+		defer close(results)
+
 		size := len(pool)
 		state := make([]int, size)
 
 		for _, list := range pool {
 			if len(list) <= 0 {
-				close(results)
 				return
 			}
 		}
@@ -32,7 +33,6 @@ func Product(pool ...[]int) chan []int {
 				state[point] = 0
 				point--
 				if point < 0 {
-					close(results)
 					return
 				}
 				state[point]++
