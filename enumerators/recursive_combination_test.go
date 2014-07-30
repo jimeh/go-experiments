@@ -2,7 +2,9 @@ package enumerators
 
 import . "gopkg.in/check.v1"
 
-type RecursiveCombinationSuite struct{}
+type RecursiveCombinationSuite struct {
+	results [][]int
+}
 
 var _ = Suite(&RecursiveCombinationSuite{})
 
@@ -50,11 +52,13 @@ func (s *RecursiveCombinationSuite) TestRecursiveCombination4(c *C) {
 */
 
 func (s *RecursiveCombinationSuite) Benchmark(c *C) {
+	var r [][]int
 	for i := 0; i < c.N; i++ {
 		results := RecursiveCombination(
 			[]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12},
 			8,
 		)
-		collectResults(results)
+		r = collectResults(results)
 	}
+	s.results = r
 }
