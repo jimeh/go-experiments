@@ -5,54 +5,49 @@ package enumerators
 //
 // Based on the C source code of Ruby's Array#combination method:
 // http://www.ruby-doc.org/core-1.9.3/Array.html#method-i-combination
-func Combination(pool []int, num int) chan []int {
-	results := make(chan []int)
+func Combination(pool []int, num int) [][]int {
+	results := [][]int{}
 
-	go func() {
-		defer close(results)
-		size := len(pool)
+	size := len(pool)
 
-		if num <= 0 || size < num {
-			return
-		} else if num == 1 {
-			for _, item := range pool {
-				results <- []int{item}
-			}
-			return
-		} else {
-			stack := make([]int, num+1)
-			lastChosen := make([]int, num)
-			lev := 0
+	if num <= 0 || size < num {
+		return results
+	} else if num == 1 {
+		for _, item := range pool {
+			results = append(results, []int{item})
+		}
+		return results
+	} else {
+		stack := make([]int, num+1)
+		lastChosen := make([]int, num)
+		lev := 0
 
-			stack[0] = -1
-			for {
-				chosen := make([]int, num)
-				copy(chosen, lastChosen)
+		stack[0] = -1
+		for {
+			chosen := make([]int, num)
+			copy(chosen, lastChosen)
 
+			chosen[lev] = pool[stack[lev+1]]
+
+			for lev++; lev < num; lev++ {
+				stack[lev+1] = stack[lev] + 1
 				chosen[lev] = pool[stack[lev+1]]
+			}
+			results = append(results, chosen)
+			copy(lastChosen, chosen)
 
-				for lev++; lev < num; lev++ {
-					stack[lev+1] = stack[lev] + 1
-					chosen[lev] = pool[stack[lev+1]]
+			for {
+				if lev == 0 {
+					return results
 				}
-				results <- chosen
-				copy(lastChosen, chosen)
 
-				for {
-					if lev == 0 {
-						return
-					}
+				stack[lev]++
+				lev--
 
-					stack[lev]++
-					lev--
-
-					if stack[lev+1]+num != size+lev+1 {
-						break
-					}
+				if stack[lev+1]+num != size+lev+1 {
+					break
 				}
 			}
 		}
-	}()
-
-	return results
+	}
 }
